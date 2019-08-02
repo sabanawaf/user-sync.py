@@ -23,7 +23,7 @@ def load_ldap_config_options(args):
 
 @pytest.fixture
 def root_config_file(fixture_dir):
-    return os.path.join(fixture_dir, 'user-sync-config.yml')
+    return os.path.join(fixture_dir, 'user-sync-config-ldap.yml')
 
 
 @pytest.fixture

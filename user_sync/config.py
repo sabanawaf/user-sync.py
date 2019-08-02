@@ -39,7 +39,7 @@ class ConfigLoader(object):
     # these are in alphabetical order!  Always add new ones that way!
     config_defaults = {
         'config_encoding': 'utf8',
-        'config_filename': 'user-sync-config.yml',
+        'config_filename': 'user-sync-config-ldap.yml',
     }
 
     # default values for options that can be specified on the command line
