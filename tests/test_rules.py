@@ -83,6 +83,56 @@ def test_get_user_attribute_difference(rule_processor):
     actual_difference_value = rule_processor.get_user_attribute_difference(umapi_users_mock_data, umapi_users_mock_data)
     assert actual_difference_value == {}
 
+def test_map_email_override(rule_processor):
+    umapi_uer_mock_data = {'email': 'SABA@sEaofcarag.com', 'status': 'active',
+                           'username': 'SABA@sEaofcarag.com', 'domain': 'sEaofcarag.com',
+                           'firstname': 'Seven', 'lastname': 'of Nine', 'country': 'US', 'type': 'federatedID'}
+
+    rule_processor.map_email_override(umapi_uer_mock_data)
+
+
+    assert rule_processor.email_override == {}
+
+    umapi_uer_mock_data['username'] = 'saba'
+    rule_processor.map_email_override(umapi_uer_mock_data)
+
+
+    assert rule_processor.email_override == {}
+
+    username = 'saba@umn.com'
+    umapi_uer_mock_data['username'] = username
+    rule_processor.map_email_override(umapi_uer_mock_data)
+
+
+    assert rule_processor.email_override == {username : 'SABA@sEaofcarag.com' }
+
+
+
+
+def test_normalize_groups(rule_processor):
+    # When the group_names is None
+    group_names = None
+    expected_value = rule_processor.normalize_groups(group_names)
+    actual_value = set()
+    assert actual_value == expected_value
+
+    #When the group_names is not None
+    group_names = ['sABa' , 'aNAM']
+    actual = rule_processor.normalize_groups(group_names)
+    expected =  ['saba', 'anam']
+    assert actual_value == expected_value
+
+
+
+
+
+
+
+
+
+
+
+
 
 def test_log_after_mapping_hook_scope(log_stream):
     stream, logger = log_stream

@@ -929,6 +929,8 @@ class RuleProcessor(object):
         if '@' in username and username != email:
             self.email_override[username] = email
 
+
+
     @staticmethod
     def get_umapi_user_in_groups(umapi_info, umapi_connector, groups):
         umapi_users_iters = []
@@ -969,6 +971,7 @@ class RuleProcessor(object):
         :rtype set(str)
         """
         result = set()
+
         if group_names is not None:
             for group_name in group_names:
                 normalized_group_name = normalize_string(group_name)
@@ -1086,6 +1089,7 @@ class RuleProcessor(object):
         :rtype: tuple
         """
         return user_key.split(',')
+        x=5
 
     def get_username_from_user_key(self, user_key):
         return self.parse_user_key(user_key)[1]
