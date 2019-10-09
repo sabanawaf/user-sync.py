@@ -221,3 +221,25 @@ def test_get_directory_connector_module_name(cli_args, config_files):
 
     options['directory_connector_type'] = None
     assert not config_loader.get_directory_connector_module_name()
+
+
+def test_get_dict_from_sources(cli_args, modify_config, modify_root_config, config_files):
+    root_config_file = config_files['root_config']
+    ldap_config_file = config_files['ldap']
+
+    args = cli_args({'config_filename': root_config_file})
+    config_loader = ConfigLoader(args)
+    with open(root_config_file, 'r') as rc:
+        x = yaml.safe_load(rc)
+
+    with open(ldap_config_file, 'r') as rc:
+        x.update(yaml.safe_load(rc))
+
+    # Test when  the list of sources is empty
+
+    assert config_loader.get_dict_from_sources([]) == {}
+
+    # Test when the list of sources is not empty
+
+    y = config_loader.get_dict_from_sources([root_config_file, ldap_config_file])
+    assert x == y
